@@ -1,14 +1,12 @@
-function calculateTax(amount, discount = 0, ...extraFees) {
-    // A function can have one rest parameter only, and it must be the last parameter
-    if (amount !== null) {
-        return amount * 1.2;
-    }
-    return null;
+function calculateTax(amount) {
+    return amount * 1.2;
 }
-function writeValue(label, value) {
-    console.log(`${label}: ${value}`);
+function writePrice(product, price) {
+    console.log(`Price for ${product}: $${price.toFixed(2)}`);
 }
-let taxAmount = calculateTax(100);
-writeValue("Tax value", taxAmount);
-let taxValue = calculateTax(200);
-console.log(`Tax value: ${taxValue}`);
+// let prices: number[] = [100, 75, 42];
+let names = ["Hat", "Gloves", "Umbrella"];
+let hat = ["Hat", 100];
+let gloves = ["Gloves", 75];
+writePrice(hat[0], hat[1]);
+writePrice(gloves[0], gloves[1]);
