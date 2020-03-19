@@ -1,6 +1,5 @@
-declare function calculateTax(amount: number, format: boolean): string | number | null;
-declare let taxNumber: number;
-declare let taxString: string;
-declare let taxValue: string | number | null;
-declare let newResult: unknown;
-declare let myNumber: number;
+declare function calculateTax(amount: number): number;
+declare function calculateTax(amount: null): null;
+declare function writeValue(label: string, value: number): void;
+declare let taxAmount: number;
+declare let taxValue: number;

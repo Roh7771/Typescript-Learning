@@ -1,33 +1,23 @@
-function calculateTax(amount: number, format: boolean): string | number | null {
-  if (amount === 0) {
-    return null;
+function calculateTax(amount: number): number;
+function calculateTax(amount: null): null;
+function calculateTax(
+  amount: number | null,
+  discount: number = 0,
+  ...extraFees: number[]
+): number | null {
+  // A function can have one rest parameter only, and it must be the last parameter
+  if (amount !== null) {
+    return amount * 1.2;
   }
-  const calcAmount = amount * 1.2;
-  return format ? `$${calcAmount.toFixed(2)}` : calcAmount;
+  return null;
 }
 
-let taxNumber = calculateTax(100, false) as number;
-let taxString = calculateTax(100, true) as string;
-
-console.log(`Number Value: ${taxNumber.toFixed(2)}`);
-console.log(`String Value: ${taxString.charAt(0)}`);
-
-let taxValue!: string | number | null; // The definitive assignment assertion tells TypeScript that a value will be assigned before the variable is used,
-eval("taxValue = calculateTax(100, false)");
-
-if (typeof taxValue === "number") {
-  console.log(`Number Value: ${taxValue.toFixed(2)}`);
-} else if (typeof taxValue === "string") {
-  console.log(`String Value: ${taxValue.charAt(0)}`);
-} else if (taxValue === null) {
-  console.log("Value is null");
-} else {
-  let value: never = taxValue;
-  console.log(`Unexpected type for value: ${value}`);
+function writeValue(label: string, value: number): void {
+  console.log(`${label}: ${value}`);
 }
 
-let newResult: unknown = calculateTax(200, false);
-let myNumber: number = newResult as number;
-console.log(`Number value: ${myNumber.toFixed(2)}`);
+let taxAmount: number = calculateTax(100);
+writeValue("Tax value", taxAmount);
 
-
+let taxValue = calculateTax(200);
+console.log(`Tax value: ${taxValue}`);
