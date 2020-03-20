@@ -1,24 +1,41 @@
-declare function calculateTax(amount: number): number;
-declare function writePrice(product: string, price: number): void;
-declare enum OtherEnum {
-    First = 10,
-    Two = 20
-}
-declare enum Product {
-    Hat = 11,
-    Gloves = 20,
-    Umbrella = 31
-}
-declare let restrictedValue: 1 | 2 | 3;
-declare function calculatePrice(quantity: 1 | 2, price: number): number;
-declare let total: number;
-declare function getRandomValue(): 1 | 2 | 3 | 4;
-declare enum City {
-    London = "LON",
-    Paris = "PAR",
-    Chicago = "CHI"
-}
-declare function getMixedValue(): 1 | "Hello" | true | City.London;
-declare type comboType = [string, number | true, 1 | 2 | 3 | City.London][];
-declare function getValue(input: comboType): comboType;
-declare let result: comboType;
+declare type Product = {
+    id: number;
+    name: string;
+    price?: number;
+};
+declare type Person = {
+    id: string;
+    name: string;
+    city: string;
+};
+declare type UnionType = {
+    id: number | string;
+    name: string;
+};
+declare type Employee = {
+    id: string;
+    company: string;
+    dept: string;
+};
+declare let hat: Product;
+declare let gloves: {
+    id: number;
+    name: string;
+    price: number;
+};
+declare let umbrella: {
+    id: number;
+    name: string;
+    price: number;
+};
+declare function isPerson(testObj: any): testObj is Person;
+declare let bob: {
+    id: string;
+    name: string;
+    city: string;
+    company: string;
+    dept: string;
+};
+declare let dataItems: (Person & Employee)[];
+declare type EmployedPerson = Person & Employee;
+declare function correlateData(peopleData: Person[], staff: Employee[]): EmployedPerson[];

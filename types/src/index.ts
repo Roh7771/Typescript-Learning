@@ -1,60 +1,58 @@
-function calculateTax(amount: number): number {
-  return amount * 1.2;
+type Product = {
+  id: number;
+  name: string;
+  price?: number;
+};
+
+type Person = {
+  id: string;
+  name: string;
+  city: string;
+};
+
+// UnionType === Person | Product
+type UnionType = {
+  id: number | string;
+  name: string;
+};
+
+type Employee = {
+  id: string
+  company: string;
+  dept: string;
+};
+
+let hat: Product = { id: 1, name: "Hat", price: 100 };
+let gloves = { id: 2, name: "Gloves", price: 75 };
+let umbrella = { id: 3, name: "Umbrella", price: 30 };
+
+function isPerson(testObj: any): testObj is Person {
+  return testObj.city !== undefined;
 }
 
-function writePrice(product: string, price: number): void {
-  console.log(`Price for ${product}: $${price.toFixed(2)}`);
-}
+let bob = {
+  id: "bsmith",
+  name: "Bob",
+  city: "London",
+  company: "Acme Co",
+  dept: "Sales"
+};
 
-enum OtherEnum {
-  First = 10,
-  Two = 20
-}
-enum Product {
-  Hat = OtherEnum.First + 1,
-  Gloves = 20,
-  Umbrella = Hat + Gloves
-}
+let dataItems: (Person & Employee)[] = [bob];
+dataItems.forEach(item => {
+  console.log(`Person: ${item.id}, ${item.name}, ${item.city}`);
+  console.log(`Employee: ${item.id}, ${item.company}, ${item.dept}`);
+});
 
-let restrictedValue: 1 | 2 | 3 = 3;
-console.log(`Value: ${restrictedValue}`);
+type EmployedPerson = Person & Employee;
 
-function calculatePrice(quantity: 1 | 2, price: number): number {
-  return quantity * price;
+function correlateData(
+  peopleData: Person[],
+  staff: Employee[]
+): EmployedPerson[] {
+  const defaults = { company: "None", dept: "None" };
+  return peopleData.map(p => ({
+    ...p,
+    ...(staff.find(e => e.id === p.id) || { ...defaults, id: p.id })
+  }));
 }
-
-let total = calculatePrice(2, 19.99);
-console.log(`Price: ${total}`);
-
-function getRandomValue(): 1 | 2 | 3 | 4 {
-  return (Math.floor(Math.random() * 4) + 5) as 1 | 2 | 3 | 4;
-}
-
-enum City {
-  London = "LON",
-  Paris = "PAR",
-  Chicago = "CHI"
-}
-function getMixedValue(): 1 | "Hello" | true | City.London {
-  switch (getRandomValue()) {
-    case 1:
-      return 1;
-    case 2:
-      return "Hello";
-    case 3:
-      return true;
-    case 4:
-      return City.London;
-  }
-}
-console.log(`Value: ${getMixedValue()}`);
-
-type comboType = [string, number | true, 1 | 2 | 3 | City.London][];
-function getValue(input: comboType): comboType {
-  return [
-    ["Apples", 100, 2],
-    ["Oranges", true, 3]
-  ];
-}
-let result: comboType = getValue([["Bananas", true, 1]]);
-console.log(`Result: ${result}`);
